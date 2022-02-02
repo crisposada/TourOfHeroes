@@ -1,24 +1,18 @@
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Rating,
-  Box,
-  Modal,
-} from '@mui/material'
-import { style } from '@mui/system'
+import { Card, CardMedia, CardContent, Typography, Rating } from '@mui/material'
+//import { style } from '@mui/system'
 import { useState } from 'react'
-import HeroModal from 'components/heroModal/heroModal'
+//import HeroModal from 'components/heroModal/heroModal'
+import HeroDialog, { HeroInfo } from 'components/heroDialog/heroDialog'
 
 interface HeroCardProps {
   name: string
   description: string
   score: number
   image: string
+  onSave: (result: HeroInfo) => void
 }
 
-function HeroCard({ name, description, score, image }: HeroCardProps) {
+function HeroCard({ name, description, score, image, onSave }: HeroCardProps) {
   const [open, setOpen] = useState(false)
   const handleClose = () => {
     setOpen(false)
@@ -26,6 +20,9 @@ function HeroCard({ name, description, score, image }: HeroCardProps) {
 
   const openDetails = () => {
     setOpen(true)
+  }
+  const handleSubmit: (result: HeroInfo) => void = (result) => {
+    onSave(result)
   }
   return (
     <>
@@ -47,13 +44,14 @@ function HeroCard({ name, description, score, image }: HeroCardProps) {
           <Rating name="read-only" value={score} readOnly />
         </Typography>
       </Card>
-      <HeroModal
+      <HeroDialog
         open={open}
         onClose={handleClose}
         name={name}
         description={description}
         score={score}
-      ></HeroModal>
+        onSubmit={handleSubmit}
+      ></HeroDialog>
     </>
   )
 }

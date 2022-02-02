@@ -1,4 +1,4 @@
-import { ViewColumn } from '@mui/icons-material'
+//import { ViewColumn } from '@mui/icons-material'
 import { Box, Grid, Modal, Rating, TextField, Typography } from '@mui/material'
 interface HeroModalProps {
   name: string
@@ -31,7 +31,7 @@ function HeroModal({
         <Box
           sx={{
             width: 500,
-            height: 400,
+            height: 420,
             backgroundColor: 'white',
             textAlign: 'center',
           }}

@@ -8,13 +8,24 @@ import {
   Grid,
 } from '@mui/material'
 //componente de react tipo funcion
-import batman from 'assets/BatmanComic2.jpg'
+import batmanIcon from 'assets/BatmanComic2.jpg'
 import thor from './assets/ThorComic.jpg'
 import superman from './assets/supermanComic2.jpg'
 import america from './assets/captainAmericaComic2.jpg'
 import HeroCard from 'components/heroCard/heroCard'
+import { HeroInfo } from 'components/heroDialog/heroDialog'
+import { useState } from 'react'
 
 function App() {
+  const [batman, setBatman] = useState<HeroInfo>({
+    name: 'Batman',
+    description: 'Strong sense of justice',
+    score: 5,
+  })
+  const handleSaveBatman: (result: HeroInfo) => void = (result) => {
+    setBatman(result)
+  }
+
   return (
     <div className="app">
       <Box sx={{ flexGrow: 1 }}>
@@ -44,10 +55,11 @@ function App() {
         >
           <Grid item>
             <HeroCard
-              name="Batman"
-              description="Strong sense of justice"
-              image={batman}
-              score={5}
+              name={batman.name}
+              description={batman.description}
+              image={batmanIcon}
+              score={batman.score}
+              onSave={handleSaveBatman}
             ></HeroCard>
           </Grid>
           <Grid item>
@@ -56,6 +68,7 @@ function App() {
               description="A hammer-wielding god"
               image={thor}
               score={4}
+              onSave={() => {}}
             ></HeroCard>
           </Grid>
           <Grid item>
@@ -64,6 +77,7 @@ function App() {
               description="Something"
               image={superman}
               score={2}
+              onSave={() => {}}
             ></HeroCard>
           </Grid>
           <Grid item>
@@ -72,6 +86,7 @@ function App() {
               description="Fights for American ideals"
               image={america}
               score={2}
+              onSave={() => {}}
             ></HeroCard>
           </Grid>
         </Grid>
