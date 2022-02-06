@@ -59,7 +59,7 @@ function App() {
               description={batman.description}
               image={batmanIcon}
               score={batman.score}
-              onSave={handleSaveBatman}
+              onSave={handleSaveBatman} //Save new Name in Card
             ></HeroCard>
           </Grid>
           <Grid item>

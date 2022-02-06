@@ -10,7 +10,12 @@ import {
   Typography,
 } from '@mui/material'
 import Button from '@mui/material/Button'
-import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
+import {
+  ChangeEventHandler,
+  HtmlHTMLAttributes,
+  MouseEventHandler,
+  useState,
+} from 'react'
 
 interface HeroInfo {
   name: string
@@ -37,19 +42,44 @@ function HeroDialog({
 }: HeroDialogProps) {
   const [internalScore, setInternalScore] = useState<number | null>(score)
   const [internalName, setInternalName] = useState<string | null>(name)
+  const [internalDescription, setInternalDescription] = useState<string | null>(
+    description
+  )
+
   const handleNameChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (event) => {
     setInternalName(event.target.value)
   }
-  const handleSubmit: MouseEventHandler<HTMLButtonElement> = () => {
-    if (internalName !== null)
-      onSubmit({ name: internalName, description: description, score: score })
+  const handleDescriptionChange: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (event) => {
+    setInternalDescription(event.target.value)
+  }
+
+  const handleSubmit: MouseEventHandler<HTMLButtonElement> = (value) => {
+    if (
+      internalName !== null &&
+      internalDescription != null &&
+      internalScore != null
+    )
+      onSubmit({
+        name: internalName,
+        description: internalDescription,
+        score: internalScore,
+      })
     onClose()
+  }
+
+  const handleClose: MouseEventHandler<HTMLButtonElement> = (value) => {
+    onClose()
+    setInternalName(name)
+    setInternalDescription(description)
+    setInternalScore(score)
   }
   return (
     <div>
-      <Dialog open={open} onClose={onClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Hero Info</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -75,7 +105,8 @@ function HeroDialog({
                   required
                   id="outlined-required"
                   label="Description"
-                  defaultValue={description}
+                  value={internalDescription}
+                  onChange={handleDescriptionChange}
                 />
               </Grid>
               <Grid item>
@@ -92,7 +123,7 @@ function HeroDialog({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmit}>Save</Button>
         </DialogActions>
       </Dialog>
@@ -102,6 +133,8 @@ function HeroDialog({
 
 export default HeroDialog
 export type { HeroInfo }
+
+//Antes <Button onClick={handleClose}>Cancel</Button>
 
 //INPUT
 //estado para almacenar el valor
