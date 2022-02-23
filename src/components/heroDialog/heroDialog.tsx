@@ -10,12 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import Button from '@mui/material/Button'
-import {
-  ChangeEventHandler,
-  HtmlHTMLAttributes,
-  MouseEventHandler,
-  useState,
-} from 'react'
+import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
 
 interface HeroInfo {
   name: string
@@ -96,6 +91,7 @@ function HeroDialog({
                   required
                   id="outlined-required"
                   label="Name"
+                  //value={name}
                   value={internalName}
                   onChange={handleNameChange}
                 />
