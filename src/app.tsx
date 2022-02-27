@@ -7,13 +7,14 @@ import { useState } from 'react'
 import { HeroInfo } from 'components/heroDialog/heroDialog'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './app.css'
-import batmanIcon from './assets/BatmanComic2.jpg'
-import thorIcon from './assets/ThorComic.jpg'
-import supermanIcon from './assets/supermanComic2.jpg'
-import americaIcon from './assets/captainAmericaComic2.jpg'
+import batmanIcon from './assets/batman.jpg'
+import thorIcon from './assets/thor.jpg'
+import supermanIcon from './assets/superman.jpg'
+import americaIcon from './assets/captainAmerica.jpg'
 import antManIcon from './assets/ant-man.jpeg'
 import blackWidowIcon from './assets/black-widow.jpeg'
 import spidermanIcon from './assets/spiderman.jpg'
+import doctorStrangeIcon from './assets/dr-strange.jpg'
 const data: HeroInfo[] = [
   {
     id: 0,
@@ -63,6 +64,13 @@ const data: HeroInfo[] = [
     description: 'Bitten by a radioactive spider.',
     score: 2,
     icon: spidermanIcon,
+  },
+  {
+    id: 7,
+    name: 'Doctor strange',
+    description: 'A talented neurosurgeon Doctor ',
+    score: 5,
+    icon: doctorStrangeIcon,
   },
 ]
 
