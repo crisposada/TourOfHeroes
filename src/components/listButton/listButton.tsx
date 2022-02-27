@@ -4,14 +4,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Rating,
   Typography,
 } from '@mui/material'
 //import { style } from '@mui/system'
 import { useState } from 'react'
 //import HeroModal from 'components/heroModal/heroModal'
 import HeroDialog, { HeroInfo } from 'components/heroDialog/heroDialog'
-import { Star, StarBorder, StarRate, StarsRounded } from '@mui/icons-material'
+import { Star } from '@mui/icons-material'
 
 interface ListButtonProp {
   name: string
@@ -52,7 +51,7 @@ function ListButton({
           <Typography>{score}</Typography>
         </ListItemIcon>
         <ListItemAvatar>
-          <Avatar alt={name} src={image} />
+          <Avatar sx={{ width: 45, height: 45 }} alt={name} src={image} />
         </ListItemAvatar>
 
         <ListItemText primary={name} />

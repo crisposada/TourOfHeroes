@@ -1,10 +1,12 @@
 import {
+  Avatar,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
   Grid,
+  ListItemAvatar,
   Rating,
   TextField,
   Typography,
@@ -91,7 +93,16 @@ function HeroDialog({
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Hero Info</DialogTitle>
+        <Grid container paddingTop={1} direction="row" justifyContent="center">
+          <Grid item xs={8.5}>
+            <DialogTitle>Hero Info</DialogTitle>
+          </Grid>
+          <Grid item xs={3.5} paddingTop={1}>
+            <ListItemAvatar>
+              <Avatar sx={{ width: 56, height: 56 }} alt={name} src={icon} />
+            </ListItemAvatar>
+          </Grid>
+        </Grid>
         <DialogContent>
           <DialogContentText>
             <Grid
