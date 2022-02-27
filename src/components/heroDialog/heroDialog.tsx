@@ -16,6 +16,8 @@ interface HeroInfo {
   name: string
   description: string
   score: number
+  id: number
+  icon: string
 }
 
 interface HeroDialogProps {
@@ -23,6 +25,8 @@ interface HeroDialogProps {
   description: string
   score: number
   open: boolean
+  id: number
+  icon: string
   onClose: () => void
   onSubmit: (result: HeroInfo) => void
 }
@@ -32,6 +36,8 @@ function HeroDialog({
   description,
   score,
   open,
+  id,
+  icon,
   onClose,
   onSubmit,
 }: HeroDialogProps) {
@@ -40,6 +46,8 @@ function HeroDialog({
   const [internalDescription, setInternalDescription] = useState<string | null>(
     description
   )
+  const [internalIcon, setInternalIcon] = useState<string | null>(icon)
+  const [internalId, setInternalId] = useState<number | null>(id)
 
   const handleNameChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -55,14 +63,20 @@ function HeroDialog({
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = (value) => {
     if (
       internalName !== null &&
-      internalDescription != null &&
-      internalScore != null
+      internalDescription !== null &&
+      internalScore !== null &&
+      internalIcon !== null &&
+      internalId !== null
     )
       onSubmit({
         name: internalName,
         description: internalDescription,
         score: internalScore,
+        id: internalId,
+        icon: internalIcon,
       })
+    setInternalId(id)
+    setInternalIcon(icon)
     onClose()
   }
 
@@ -71,6 +85,8 @@ function HeroDialog({
     setInternalName(name)
     setInternalDescription(description)
     setInternalScore(score)
+    setInternalId(id)
+    setInternalIcon(icon)
   }
   return (
     <div>

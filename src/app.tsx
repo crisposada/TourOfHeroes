@@ -5,108 +5,115 @@ import PageRanking from 'pages/pageRanking'
 import PageHeroes from 'pages/pageHeroes'
 import { useState } from 'react'
 import { HeroInfo } from 'components/heroDialog/heroDialog'
-function App() {
-  const [page, setPage] = useState('pageRanking') //O PageB
-  const [batman, setBatman] = useState<HeroInfo>({
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import './app.css'
+import batmanIcon from './assets/BatmanComic2.jpg'
+import thorIcon from './assets/ThorComic.jpg'
+import supermanIcon from './assets/supermanComic2.jpg'
+import americaIcon from './assets/captainAmericaComic2.jpg'
+import antManIcon from './assets/ant-man.jpeg'
+import blackWidowIcon from './assets/black-widow.jpeg'
+import spidermanIcon from './assets/spiderman.jpg'
+const data: HeroInfo[] = [
+  {
+    id: 0,
     name: 'Batman',
     description: 'Strong sense of justice',
     score: 5,
-  })
-  const handleSaveBatman: (result: HeroInfo) => void = (result) => {
-    setBatman(result)
-  }
-
-  const [thor, setThor] = useState<HeroInfo>({
+    icon: batmanIcon,
+  },
+  {
+    id: 1,
     name: 'Thor',
     description: 'A hammer-wielding god',
     score: 4,
-  })
-
-  const handleSaveThor: (result: HeroInfo) => void = (result) => {
-    setThor(result)
-  }
-
-  const [superman, setSuperman] = useState<HeroInfo>({
+    icon: thorIcon,
+  },
+  {
+    id: 2,
     name: 'Superman',
     description: 'A strong alien with laser eyes',
     score: 2,
-  })
-
-  const handleSaveSuperman: (result: HeroInfo) => void = (result) => {
-    setSuperman(result)
-  }
-  const [captainAmerica, setCaptainAmerica] = useState<HeroInfo>({
+    icon: supermanIcon,
+  },
+  {
+    id: 3,
     name: 'Captain America',
     description: 'Fights for American ideals',
     score: 2,
-  })
-
-  const handleSaveCaptainAmerica: (result: HeroInfo) => void = (result) => {
-    setCaptainAmerica(result)
-  }
-
-  const [hero, setHero] = useState<HeroInfo>({
-    name: 'Hero name',
-    description: 'Hero description',
+    icon: americaIcon,
+  },
+  {
+    id: 4,
+    name: 'Ant-Man',
+    description: 'He talks to insects',
+    score: 1,
+    icon: antManIcon,
+  },
+  {
+    id: 5,
+    name: 'Black widow',
+    description: 'A Russian agent trained as a spy',
     score: 2,
-  })
+    icon: blackWidowIcon,
+  },
+  {
+    id: 6,
+    name: 'Spiderman',
+    description: 'Bitten by a radioactive spider.',
+    score: 2,
+    icon: spidermanIcon,
+  },
+]
+
+function App() {
+  const [heroes, setHeroes] = useState(data)
   const handleSaveHero: (result: HeroInfo) => void = (result) => {
-    setHero(result)
+    let nextHeroes = [...heroes]
+    let heroToModify = nextHeroes.find((hero) => hero.id === result.id)
+    if (heroToModify !== undefined) {
+      heroToModify.name = result.name
+      heroToModify.description = result.description
+      heroToModify.score = result.score
+    }
+    setHeroes(nextHeroes)
   }
 
   return (
-    <div className="app">
-      {/* <Box sx={{ flexGrow: 1 }}> */}
-      <AppBar style={{ background: '#94A077' }}>
-        <Container>
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Tour of Heroes
-            </Typography>
-            <div>
-              <Button
-                onClick={() => {
-                  setPage('pageRanking')
-                }}
-                color="inherit"
-              >
-                Ranking
-              </Button>
-              <Button
-                onClick={() => {
-                  setPage('pageHeroes')
-                }}
-                color="inherit"
-              >
-                Heroes
-              </Button>
-            </div>
-          </Toolbar>
-        </Container>
-      </AppBar>
-      {/* </Box> */}
-      {page === 'pageRanking' ? (
-        <PageRanking
-          batman={batman}
-          saveBatman={handleSaveBatman}
-          thor={thor}
-          saveThor={handleSaveThor}
-          superman={superman}
-          saveSuperman={handleSaveSuperman}
-          captainAmerica={captainAmerica}
-          saveCaptainAmerica={handleSaveCaptainAmerica}
-        ></PageRanking> //If else for PageRanking or PageHeroes
-      ) : (
-        <PageHeroes
-          batman={batman}
-          thor={thor}
-          superman={superman}
-          captainAmerica={captainAmerica}
-          hero={hero}
-          onSave={handleSaveHero}
-        ></PageHeroes>
-      )}
-    </div>
+    <Router>
+      <div className="app">
+        {/* <Box sx={{ flexGrow: 1 }}> */}
+        <AppBar style={{ background: '#94A077' }}>
+          <Container>
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Tour of Heroes
+              </Typography>
+              <div>
+                <Link to="/page-ranking">
+                  <Button color="inherit">Ranking</Button>
+                </Link>
+                <Link to="/page-heroes">
+                  <Button color="inherit">Heroes</Button>
+                </Link>
+              </div>
+            </Toolbar>
+          </Container>
+        </AppBar>
+        <Switch>
+          <Route path="/page-ranking">
+            <PageRanking heroes={heroes} onHeroChange={handleSaveHero} />
+          </Route>
+          <Route path="/page-heroes">
+            <PageHeroes heroes={heroes} onHeroChange={handleSaveHero} />
+          </Route>
+          <Route path="/">
+            <PageRanking heroes={heroes} onHeroChange={handleSaveHero} />
+            {/*defalut route*/}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 //material UI add to package json

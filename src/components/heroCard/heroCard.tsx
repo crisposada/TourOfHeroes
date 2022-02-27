@@ -9,10 +9,18 @@ interface HeroCardProps {
   description: string
   score: number
   image: string
+  id: number
   onSave: (result: HeroInfo) => void
 }
 
-function HeroCard({ name, description, score, image, onSave }: HeroCardProps) {
+function HeroCard({
+  name,
+  description,
+  score,
+  image,
+  id,
+  onSave,
+}: HeroCardProps) {
   const [open, setOpen] = useState(false)
   const handleClose = () => {
     setOpen(false)
@@ -50,6 +58,8 @@ function HeroCard({ name, description, score, image, onSave }: HeroCardProps) {
         name={name}
         description={description}
         score={score}
+        id={id}
+        icon={image}
         onSubmit={handleSubmit}
       ></HeroDialog>
     </>

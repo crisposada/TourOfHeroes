@@ -1,79 +1,49 @@
-import batmanIcon from '../assets/BatmanComic2.jpg'
-import thorIcon from '../assets/ThorComic.jpg'
-import supermanIcon from '../assets/supermanComic2.jpg'
-import americaIcon from '../assets/captainAmericaComic2.jpg'
 import HeroCard from 'components/heroCard/heroCard'
 import { HeroInfo } from 'components/heroDialog/heroDialog'
 import { Grid } from '@mui/material'
 
+type HeroChangeHandler = (hero: HeroInfo) => void
+
 interface PageRankingProps {
-  batman: HeroInfo
-  saveBatman: (result: HeroInfo) => void
-  thor: HeroInfo
-  saveThor: (result: HeroInfo) => void
-  superman: HeroInfo
-  saveSuperman: (result: HeroInfo) => void
-  captainAmerica: HeroInfo
-  saveCaptainAmerica: (result: HeroInfo) => void
+  heroes: HeroInfo[]
+  onHeroChange: HeroChangeHandler
 }
-function PageRanking({
-  batman,
-  saveBatman,
-  thor,
-  saveThor,
-  superman,
-  saveSuperman,
-  captainAmerica,
-  saveCaptainAmerica,
-}: PageRankingProps) {
+function PageRanking({ heroes, onHeroChange }: PageRankingProps) {
+  const handleSave = (result: HeroInfo) => {
+    onHeroChange(result)
+  }
+
   return (
     <div>
-      {' '}
       <Grid
         container
         spacing={3}
         direction="row"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: '80vh' }}
+        style={{ minHeight: '90vh' }}
       >
-        <Grid item>
-          <HeroCard
-            name={batman.name}
-            description={batman.description}
-            image={batmanIcon}
-            score={batman.score}
-            //onSave={handleSaveBatman} //Save new Name in Card
-            onSave={saveBatman} //Save new Name in Card
-          ></HeroCard>
-        </Grid>
-        <Grid item>
-          <HeroCard
-            name={thor.name}
-            description={thor.description}
-            image={thorIcon}
-            score={thor.score}
-            onSave={saveThor}
-          ></HeroCard>
-        </Grid>
-        <Grid item>
-          <HeroCard
-            name={superman.name}
-            description={superman.description}
-            image={supermanIcon}
-            score={superman.score}
-            onSave={saveSuperman}
-          ></HeroCard>
-        </Grid>
-        <Grid item>
-          <HeroCard
-            name={captainAmerica.name}
-            description={captainAmerica.description}
-            image={americaIcon}
-            score={captainAmerica.score}
-            onSave={saveCaptainAmerica}
-          ></HeroCard>
-        </Grid>
+        {/* {heroes.map((value) => ( */}
+        {/* {heroes
+          .filter((values) => values.score >= 3)
+          .map((value) => ( */}
+        {heroes
+          .sort((a, b) => (a.score > b.score ? -1 : 1))
+          .slice(0, 4)
+          .filter((values) => values.score >= 2)
+          .map((value) => (
+            <Grid item>
+              <HeroCard
+                key={value.id}
+                name={value.name}
+                description={value.description}
+                image={value.icon}
+                score={value.score}
+                id={value.id}
+                onSave={handleSave}
+              />
+            </Grid>
+          ))}
       </Grid>
     </div>
   )
