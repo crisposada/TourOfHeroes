@@ -15,6 +15,7 @@ import antManIcon from './assets/ant-man.jpeg'
 import blackWidowIcon from './assets/black-widow.jpeg'
 import spidermanIcon from './assets/spiderman.jpg'
 import doctorStrangeIcon from './assets/dr-strange.jpg'
+import hulkIcon from './assets/hulk.jpg'
 const data: HeroInfo[] = [
   {
     id: 0,
@@ -71,6 +72,13 @@ const data: HeroInfo[] = [
     description: 'A talented neurosurgeon Doctor ',
     score: 5,
     icon: doctorStrangeIcon,
+  },
+  {
+    id: 8,
+    name: 'Hulk',
+    description: 'The strongest Avenger ',
+    score: 5,
+    icon: hulkIcon,
   },
 ]
 
@@ -154,7 +162,7 @@ En app va a ir
 Todo menos la cabecera
 tiene que ir a cada pagina
 
-y un render condicional
+y un render condicion
 que cargue una pagina u otra
 
 <div>cabecerea</div>
@@ -169,3 +177,8 @@ crear estado en function App(){
 
 Hacer la otra pagina reautilizando componentes
 */
+
+//deberers 1 marzo
+//list of heroes sort by
+//Aladin
+//preview
