@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   ListItemAvatar,
   ListItemButton,
   ListItemIcon,
@@ -11,6 +12,16 @@ import { useState } from 'react'
 //import HeroModal from 'components/heroModal/heroModal'
 import HeroDialog, { HeroInfo } from 'components/heroDialog/heroDialog'
 import { Star } from '@mui/icons-material'
+import HeroExtend from 'components/heroExtend/heroExtend'
+
+interface HeroShow {
+  name: string
+  description: string
+  score: number
+  id: number
+  icon: string
+  show: boolean
+}
 
 interface ListButtonProp {
   name: string
@@ -19,6 +30,8 @@ interface ListButtonProp {
   image: string
   id: number
   onSave: (result: HeroInfo) => void
+  onShow: (result: boolean) => void
+  onHover: (result: HeroInfo) => void
 }
 
 function ListButton({
@@ -28,6 +41,8 @@ function ListButton({
   id,
   image,
   onSave,
+  onShow,
+  onHover,
 }: ListButtonProp) {
   const [open, setOpen] = useState(false)
   const handleClose = () => {
@@ -37,10 +52,35 @@ function ListButton({
   const handleSubmit: (result: HeroInfo) => void = (result) => {
     onSave(result)
   }
+  //const [show, setShow] = useState(false)
+  const handleShow = () => {
+    //setShow(true)
+    onShow(true)
+    if (
+      name !== null &&
+      description !== null &&
+      score !== null &&
+      image !== null &&
+      id !== null
+    )
+      onHover({
+        name: name,
+        description: description,
+        score: score,
+        id: id,
+        icon: image,
+      })
+  }
 
+  const handleNotShow = () => {
+    //setShow(false)
+    onShow(false)
+  }
   return (
-    <>
+    <div>
       <ListItemButton
+        onMouseOver={() => handleShow()}
+        onMouseLeave={() => handleNotShow()}
         onClick={() => {
           //alert(value.name)
           setOpen(true)
@@ -56,7 +96,6 @@ function ListButton({
 
         <ListItemText primary={name} />
       </ListItemButton>
-
       <HeroDialog
         open={open}
         onClose={handleClose}
@@ -67,7 +106,9 @@ function ListButton({
         icon={image}
         onSubmit={handleSubmit}
       ></HeroDialog>
-    </>
+    </div>
   )
 }
 export default ListButton
+//
+//<HeroExtend show={show} name={name} icon={image}></HeroExtend>

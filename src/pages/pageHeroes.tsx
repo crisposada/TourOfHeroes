@@ -8,10 +8,14 @@ import {
   InputLabel,
 } from '@mui/material'
 import { HeroInfo } from 'components/heroDialog/heroDialog'
+import HeroExtend from 'components/heroExtend/heroExtend'
 import ListButton from 'components/listButton/listButton'
 import { useState } from 'react'
-
+import { setTokenSourceMapRange } from 'typescript'
+import supermanIcon from '../assets/superman.jpg'
 type HeroChangeHandler = (hero: HeroInfo) => void
+
+const myName = 'a'
 interface PageHeroesProps {
   heroes: HeroInfo[]
   onHeroChange: HeroChangeHandler
@@ -24,6 +28,16 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
 
   const handleSave = (result: HeroInfo) => {
     onHeroChange(result)
+  }
+  const [show, setShow] = useState(false)
+  const handleShow = (result: boolean) => {
+    setShow(result)
+  }
+
+  const [heroName, setHeroName] = useState<string>(myName)
+
+  const handleHover: (result: HeroInfo) => void = (result) => {
+    if (result.name !== undefined) setHeroName(result.name)
   }
 
   const score = 'Score'
@@ -43,20 +57,19 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
     else if (event.target.value === score) setSortFn(() => sortScoreFn)
     else setSortFn(() => sortNameId)
   }
-
   return (
     <div>
       <Grid
         container
         spacing={3}
-        direction="column"
-        alignItems="top"
+        direction="row"
+        alignItems="center"
         marginLeft={18}
-        marginTop={10}
+        marginTop={2}
         //justifyContent="left"
-        style={{ minHeight: '100vh' }}
+        style={{ minHeight: '90vh' }}
       >
-        <Grid item>
+        <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
             <Select
@@ -71,18 +84,6 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
               <MenuItem value={id}>{id}</MenuItem>
             </Select>
           </FormControl>
-          {/* <Autocomplete
-              onClick={handleSort}
-              disablePortal
-              id="combo-box-demo"
-              sx={{ width: 300 }}
-              options={sorting}
-              renderInput={(params) => (
-                <TextField {...params} label="Sort by" />
-              )}
-            /> */}
-        </Grid>
-        <Grid item>
           <List
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
           >
@@ -98,9 +99,18 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
                 score={value.score}
                 id={value.id}
                 onSave={handleSave}
+                onShow={handleShow}
+                onHover={handleHover}
               ></ListButton>
             ))}
           </List>
+        </Grid>
+        <Grid item alignItems="center">
+          <HeroExtend
+            show={show}
+            name={heroName}
+            icon={supermanIcon}
+          ></HeroExtend>
         </Grid>
       </Grid>
     </div>
