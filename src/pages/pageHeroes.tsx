@@ -16,6 +16,7 @@ import supermanIcon from '../assets/superman.jpg'
 type HeroChangeHandler = (hero: HeroInfo) => void
 
 const myName = 'a'
+const myId = 1
 interface PageHeroesProps {
   heroes: HeroInfo[]
   onHeroChange: HeroChangeHandler
@@ -35,9 +36,11 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
   }
 
   const [heroName, setHeroName] = useState<string>(myName)
+  const [heroId, setHeroId] = useState<number>(myId)
 
   const handleHover: (result: HeroInfo) => void = (result) => {
     if (result.name !== undefined) setHeroName(result.name)
+    if (result.id !== undefined) setHeroId(result.id)
   }
 
   const score = 'Score'
@@ -60,6 +63,7 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
   return (
     <div>
       <Grid
+        onMouseLeave={() => setShow(false)}
         container
         spacing={3}
         direction="row"
@@ -109,6 +113,7 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
           <HeroExtend
             show={show}
             name={heroName}
+            id={heroId}
             icon={supermanIcon}
           ></HeroExtend>
         </Grid>
