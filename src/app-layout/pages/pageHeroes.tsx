@@ -1,5 +1,4 @@
 import {
-  List,
   Grid,
   MenuItem,
   Select,
@@ -9,10 +8,9 @@ import {
 } from '@mui/material'
 import { HeroInfo } from 'components/heroDialog/heroDialog'
 import HeroExtend from 'components/heroExtend/heroExtend'
-import ListButton from 'components/listButton/listButton'
 import { useState } from 'react'
-import { setTokenSourceMapRange } from 'typescript'
-import supermanIcon from '../assets/superman.jpg'
+import supermanIcon from 'assets/superman.jpg'
+import HeroList from 'components/heroList/heroList'
 type HeroChangeHandler = (hero: HeroInfo) => void
 
 const myName = 'a'
@@ -88,26 +86,13 @@ function PageHeroes({ heroes, onHeroChange }: PageHeroesProps) {
               <MenuItem value={id}>{id}</MenuItem>
             </Select>
           </FormControl>
-          <List
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-          >
-            {/* {heroes.map((value) => ( */}
-
-            {/* // .sort((a, b) => (a.score > b.score ? -1 : 1)) */}
-            {heroes.sort(sortFn).map((value, i) => (
-              <ListButton
-                key={value.id}
-                name={value.name}
-                description={value.description}
-                image={value.icon}
-                score={value.score}
-                id={value.id}
-                onSave={handleSave}
-                onShow={handleShow}
-                onHover={handleHover}
-              ></ListButton>
-            ))}
-          </List>
+          <HeroList
+            sortFn={sortFn}
+            heroes={heroes}
+            handleSave={handleSave}
+            handleShow={handleShow}
+            handleHover={handleHover}
+          ></HeroList>
         </Grid>
         <Grid item alignItems="center">
           <HeroExtend

@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   ListItemAvatar,
   ListItemButton,
   ListItemIcon,
@@ -12,18 +11,8 @@ import { useState } from 'react'
 //import HeroModal from 'components/heroModal/heroModal'
 import HeroDialog, { HeroInfo } from 'components/heroDialog/heroDialog'
 import { Star } from '@mui/icons-material'
-import HeroExtend from 'components/heroExtend/heroExtend'
 
-interface HeroShow {
-  name: string
-  description: string
-  score: number
-  id: number
-  icon: string
-  show: boolean
-}
-
-interface ListButtonProp {
+interface HeroListItemProps {
   name: string
   description: string
   score: number
@@ -34,7 +23,7 @@ interface ListButtonProp {
   onHover: (result: HeroInfo) => void
 }
 
-function ListButton({
+function HeroListItem({
   name,
   description,
   score,
@@ -43,7 +32,7 @@ function ListButton({
   onSave,
   onShow,
   onHover,
-}: ListButtonProp) {
+}: HeroListItemProps) {
   const [open, setOpen] = useState(false)
   const handleClose = () => {
     setOpen(false)
@@ -72,10 +61,6 @@ function ListButton({
       })
   }
 
-  const handleNotShow = () => {
-    //setShow(false)
-    onShow(false)
-  }
   return (
     <div>
       <ListItemButton
@@ -109,6 +94,6 @@ function ListButton({
     </div>
   )
 }
-export default ListButton
+export default HeroListItem
 //
 //<HeroExtend show={show} name={name} icon={image}></HeroExtend>

@@ -12,15 +12,8 @@ import {
   Typography,
 } from '@mui/material'
 import Button from '@mui/material/Button'
+import { HeroInfo } from 'core/api/heroes'
 import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
-
-interface HeroInfo {
-  name: string
-  description: string
-  score: number
-  id: number
-  icon: string
-}
 
 interface HeroDialogProps {
   name: string
