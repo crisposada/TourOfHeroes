@@ -19,6 +19,10 @@ function AppLayout() {
     }
     setHeroes(nextHeroes)
   }
+  const [active, setActive] = useState(false)
+  const handleClick = () => {
+    setActive(!active)
+  }
   return (
     <Router>
       <div className="app">
@@ -31,10 +35,14 @@ function AppLayout() {
               </Typography>
               <div>
                 <Link to="/page-ranking">
-                  <Button color="inherit">Ranking</Button>
+                  <Button onClick={handleClick} style={{ backgroundColor: active ? 'inherit' : '#808b67' }} color="inherit">
+                    Ranking
+                  </Button>
                 </Link>
                 <Link to="/page-heroes">
-                  <Button color="inherit">Heroes</Button>
+                  <Button onClick={handleClick} style={{ backgroundColor: active ? '#808b67' : 'inherit' }} color="inherit">
+                    Heroes
+                  </Button>
                 </Link>
               </div>
             </Toolbar>
